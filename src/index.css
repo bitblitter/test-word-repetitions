@@ -21,32 +21,30 @@
   font-size: 1.1em;
 }
 
-.test-form output .rpttext {
-  position: relative;
-  border-radius: 5px;
-  border: #ccc 1px solid;
-  padding: 0 2px;
+.test-form output .graph {
+  display: flex;
+  flex-direction: column;
 }
 
-.test-form output .rptweight {
-  color: orange;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 2px;
+.test-form output .graph .graph-item {
+  display: flex;
+  padding: 4px;
 }
 
-.test-form output .rptcount {
-  position: absolute;
-  top: -0.5em;
-  right: -0.7em;
-  font-size: 0.5em;
-  background: red;
+.graph .graph-item .label {
+  flex-basis: 10em;
+  flex: 0;
+  min-width: 10em;
+  text-align: right;
+  padding: 0 5px;
+}
+
+.graph .graph-item .value {
+  background: steelblue;
   color: white;
-  border-radius: 100px;
-  width: 1.4em;
-  height: 1.4em;
-  line-height: 1.4em;
-  text-align: center;
-  opacity: 1;
+  font-size: 0.8em;
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  justify-content: flex-end;
 }

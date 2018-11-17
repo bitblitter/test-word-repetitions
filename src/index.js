@@ -14,21 +14,24 @@ var app = ({ element, document, text = "" }) => {
 
     var maxRepetitions = Math.max.apply(this, Object.values(repeatedWords));
 
-    var wordListHTML = inputText;
-    words.forEach(word => {
-      var count = repeatedWords[word];
-      var weight = count / maxRepetitions;
-      var fontWeight = weight * 0.4 + 1;
-      var wordRegEx = new RegExp(`\\b${word}\\b`, "gi");
-      var wordReplacement = `<span class="rpttext" 
-          title="'${word}': ${count} repetitions." 
-          style="font-weight: ${fontWeight}em" ><span 
-          class="rptweight" style="opacity: ${weight}"
-          >${word}</span>${word}<span class="rptcount">${count}</span></span>`;
-      wordListHTML = wordListHTML.replace(wordRegEx, wordReplacement);
-    });
+    var wordListHTML = "";
+    words
+      .sort((a, b) => {
+        if (repeatedWords[a] > repeatedWords[b]) return -1;
+        if (repeatedWords[a] < repeatedWords[b]) return 1;
+        return 0;
+      })
+      .forEach(word => {
+        var count = repeatedWords[word];
+        var width = (count / maxRepetitions) * 100;
 
-    output.innerHTML = `<quote>${wordListHTML}</quote>`;
+        wordListHTML += `<div class="graph-item">
+            <span class="label">${word}</span>
+            <span class="value" style="width: ${width}%">${count}</span>
+        </div>`;
+      });
+
+    output.innerHTML = `<div class="graph">${wordListHTML}</div>`;
   };
   var form = document.createElement("form");
 
@@ -55,5 +58,5 @@ app({
   element: appElement,
   document: document,
   text:
-    "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."
+    "Lorem Ipsum és un text de farciment usat per la indústria de la tipografia i la impremta. Lorem Ipsum ha estat el text estàndard de la indústria des de l'any 1500, quan un impressor desconegut va fer servir una galerada de text i la va mesclar per crear un llibre de mostres tipogràfiques."
 });
